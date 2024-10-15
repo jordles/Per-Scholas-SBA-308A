@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create a User Profile (Javascript Web Application)</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="./modules/main.js" defer></script>
+</head>
+<body>
+  <ul class="background">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    
+  </ul>
+  <div class="carousel-container">
+    <div class="carousel">
+      <div class="form-step">
+        <h2>Choose a Name</h2>
+        <input type="text" id="name" placeholder="Enter your name">
+      </div>
+      <div class="form-step" >
+        <h2>User Creation</h2>
+        <div class="wrapper-select">
+          <button class="nav-btn" id="custom">Custom</button>
+          <button class="nav-btn" id="anon">Anonymous</button>  
+        </div>
+        
+      </div>
+      <div class="form-step">
+        <h2>Gender</h2>
+        <div class="wrapper-select">
+          <button class="nav-btn" id="male">Male</button>
+          <button class="nav-btn" id="female">Female</button>  
+          <button class="nav-btn" id="other" contenteditable="true">Other</button>
+        </div>
+      </div>
+      <div class="form-step">
+        <h2>Login Information</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <input type="password" id="confirm-password" placeholder="Confirm Password">
+      </div>
+    </div>
+  </div>
+  <div class="message none"></div>
+</body>
+</html>
