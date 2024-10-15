@@ -1,6 +1,6 @@
 import { nextButtons, prevButtons, moveCarousel } from './carousel.js';
-import {password, passwordConfirm, displayMessage, validateStep, updateUserInfo} from './form.js';
-
+import {password, passwordConfirm, displayMessage, validateStep} from './form.js';
+import {updateUserInfo} from './apis.js';
 
 
 

@@ -32,7 +32,7 @@ h2{
   border-bottom: 1px black solid;
 }
 
-input{
+input, textarea{
   border-radius: 5px;
   background: rgb(255 255 255 / 0.5);
   border: none;
@@ -141,7 +141,8 @@ input{
   margin: auto;
   position: relative;
   width: 100%;
-  overflow: hidden; /* Hide the other slides */
+  overflow-y: visible; /* Hide the other slides */
+  
 }
 
 .carousel {
@@ -179,8 +180,8 @@ input{
   border-radius: 5px;
   position: absolute;
   left: 50%;
-  top: 80%;
-  transform: translate(-50%, -80%);
+  bottom: -10%;
+  transform: translate(-50%, 10%);
   padding: 10px;
   text-align: center;
 }

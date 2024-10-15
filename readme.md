@@ -18,3 +18,9 @@ One of the things I learned from this assignment was how to hash passwords. SHA1
 | Commit frequently to the git repository. | 5% |  |
 | Include a README file that contains a description of your application. | 2% |  |
 | Level of effort displayed in creativity, presentation, and user experience. | 5% |  |
+
+## Attribution
+[Animated Background: Demo 2](https://wweb.dev/resources/animated-css-background-generator)  
+[Random User API: Generated Default User Data](https://randomuser.me/)  
+[JSON MOCK DATA: Allowed us to use PATCH requests with Random User API](https://jsonplaceholder.typicode.com/)
+
