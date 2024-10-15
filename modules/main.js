@@ -1,4 +1,4 @@
-import { nextButtons, prevButtons, moveCarousel } from './carousel.js';
+import { nextButtons, prevButtons, moveCarousel, carouselContainer } from './carousel.js';
 import {password, passwordConfirm, displayMessage, validateStep} from './form.js';
 import {updateUserInfo} from './apis.js';
 
@@ -17,6 +17,8 @@ nextButtons.forEach(button => {
     }
     if(button.getAttribute('type') === 'submit') {
       updateUserInfo();
+      carouselContainer.classList.add('none');
+      
     }
     currentStep++;
     moveCarousel();

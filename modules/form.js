@@ -22,6 +22,7 @@ const grounded = document.getElementById('grounded');
 const simplicity = document.getElementById('simplicity');
 const creativity = document.getElementById('creativity');
 
+console.log(nurturing);
 // Function to handle mouseover and mouseout events
 function handleHover(element, messageText) {
   element.addEventListener('mouseover', () => {
@@ -54,10 +55,6 @@ const elementsWithMessages = [
 elementsWithMessages.forEach(item => {
   handleHover(item.element, item.message);
 });
-
-nurturing.addEventListener('mouseover', () => {
-  message.style.display = 'block';
-})
 
 wrapperSelect.forEach((select, index ) => select.addEventListener('click', (e) => {
   const buttons = select.querySelectorAll('button');
