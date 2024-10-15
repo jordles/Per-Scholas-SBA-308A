@@ -15,62 +15,49 @@ const email = document.getElementById('email');
 const passwordConfirm = document.querySelector('#password-confirm');
 const wrapperSelect = document.querySelectorAll('.wrapper-select');
 const coreRoots = document.getElementById('core-roots');
+const coreTree = document.getElementById('core-tree');
+const nurturing = document.getElementById('nurturing');
+const adaptability = document.getElementById('adaptability');
+const grounded = document.getElementById('grounded');
+const simplicity = document.getElementById('simplicity');
+const creativity = document.getElementById('creativity');
 
+// Function to handle mouseover and mouseout events
+function handleHover(element, messageText) {
+  element.addEventListener('mouseover', () => {
+    message.style.display = 'block';
+    message.textContent = messageText;
+  });
 
-custom.addEventListener('mouseover', () => {
+  element.addEventListener('mouseout', () => {
+    message.style.display = 'none';
+  });
+}
+
+// Map of elements and corresponding messages
+const elementsWithMessages = [
+  { element: custom, message: 'Customize your entire profile' },
+  { element: anon, message: 'Stay anonymous; We randomize your user profile for you. This includes your username and password (editable in your settings later)'},
+  { element: other, message: 'Other is editable, the value will be displayed on your profile' },
+  { element: title, message: 'Title can be anything; A catchphrase, your job title, a small description about you, hobbies, etc.' },
+  { element: body, message: 'Your bio or a more in depth description about yourself.' },
+  { element: coreRoots, message: 'Within the Root community, core roots are key traits that connect people together. You can add as many as you want. We use this data to display and search for like-minded people with similar core roots.' },
+  { element: coreTree, message: "Along with core roots, the core tree is another metric we use to connect you with like-minded people. The core tree is a representation of your personality in accordance to Root's core values. Hover over each personality trait to learn more." },
+  { element: nurturing, message: 'Nurturing measures how open and sociable you are. [0 - solitude -> 5 - sociable]'},
+  { element: adaptability, message: 'Adaptability measures how flexible you are. [0 - stagnant -> 5 - change]'},
+  { element: grounded, message: 'Grounded measures your type of thinking and behavior. [0 - emotional -> 5 - logical]'},
+  { element: simplicity, message: 'Simplicity measures how you approach and experience life. [0 - complexity -> 5 - minimalism]'},
+  { element: creativity, message: 'Creativity measures your focus on the future. [0 - traditional -> 5 - innovative]'},
+];
+
+// Loop through the elements and assign the event listeners
+elementsWithMessages.forEach(item => {
+  handleHover(item.element, item.message);
+});
+
+nurturing.addEventListener('mouseover', () => {
   message.style.display = 'block';
-  message.textContent = 'Customize your entire profile';
-});
-
-custom.addEventListener('mouseout', () => {
-  message.style.display = 'none';
-});
-
-anon.addEventListener('mouseover', () => {
-  message.style.display = 'block';
-  message.textContent = 'Stay anonymous; We randomize your user profile for you. This includes your username and password (editable in your settings later)';
-});
-
-anon.addEventListener('mouseout', () => {
-  message.style.display = 'none';
-});
-
-other.addEventListener('mouseover', () => {
-  message.style.display = 'block';
-  message.textContent = 'Other is editable, the value will be displayed on your profile';
-});
-
-other.addEventListener('mouseout', () => {
-  message.style.display = 'none';
-});
-
-title.addEventListener('mouseover', () => {
-  message.style.display = 'block';
-  message.textContent = 'Title can be anything; A catchphrase, your job title, a small description about you, hobbies, etc.';
-});
-
-title.addEventListener('mouseout', () => {
-  message.style.display = 'none';
-});
-
-body.addEventListener('mouseover', () => {
-  message.style.display = 'block';
-  message.textContent = 'Your bio or a more in depth description about yourself.';
-});
-
-body.addEventListener('mouseout', () => {
-  message.style.display = 'none';
-});
-
-coreRoots.addEventListener('mouseover', () => {
-  message.style.display = 'block';
-  message.textContent = 'Within the Root community, core roots are key traits that connect people together. You can add as many as you want. We use this data to display and search for like-minded people with similar core roots.';
-});
-
-coreRoots.addEventListener('mouseout', () => {
-  message.style.display = 'none';
-});
-
+})
 
 wrapperSelect.forEach((select, index ) => select.addEventListener('click', (e) => {
   const buttons = select.querySelectorAll('button');
