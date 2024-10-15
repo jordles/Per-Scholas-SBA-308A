@@ -1,33 +1,32 @@
 import { nextButtons, prevButtons, moveCarousel, carouselContainer } from './carousel.js';
-import {password, passwordConfirm, displayMessage, validateStep} from './form.js';
-import {updateUserInfo} from './apis.js';
+import {password, passwordConfirm, displayMessage, validateStep, anonymous} from './form.js';
+import {updateUserInfo, displayUserInfo} from './apis.js';
 
 
 
 /* -------------------------------------------------------------------------- */
 /*                                  CAROUSEL                                  */
 /* -------------------------------------------------------------------------- */
-let anonymous = false;
+
 let currentStep = 0;
 nextButtons.forEach(button => {
-  button.addEventListener('click', () => {
+  button.addEventListener('click', async () => {
     console.log(validateStep());
     if (!validateStep()) {
       return; // Stop if validation fails
     }
     if(button.getAttribute('type') === 'submit') {
-      updateUserInfo();
-      carouselContainer.classList.add('none');
-      
+      await updateUserInfo();
+      displayUserInfo();
     }
-    currentStep++;
+    (anonymous && currentStep === 1) ? currentStep += 4 : currentStep++;
     moveCarousel();
   });
 });
 
 prevButtons.forEach(button => {
   button.addEventListener('click', () => {
-    currentStep--;
+    (anonymous && currentStep === 5) ? currentStep -= 4 : currentStep--;
     moveCarousel();
   });
 });
@@ -39,5 +38,5 @@ prevButtons.forEach(button => {
 
 
 export{
-  currentStep
+  currentStep,
 }

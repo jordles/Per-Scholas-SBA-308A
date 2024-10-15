@@ -10,7 +10,7 @@ html, body{
 
 body{
   display: flex;
-
+  overflow: hidden;
 }
 
 @keyframes animate {
@@ -38,8 +38,12 @@ input, textarea{
   border: none;
   padding: 10px;
 }
+
+img:hover{
+  border: 5px dotted #f0f3bd;
+}
 .none{
-  display: none;
+  display: none !important;
 }
 .background {
   position: fixed;
@@ -137,12 +141,23 @@ input, textarea{
 /* -------------------------------------------------------------------------- */
 /*                                  CAROUSEL                                  */
 /* -------------------------------------------------------------------------- */
-.carousel-container {
+.carousel-container, #user-results{
   margin: auto;
   position: relative;
   width: 100%;
   overflow-y: visible; /* Hide the other slides */
   
+}
+#user-results{
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: rgb(255 255 255 / 20%);
+  padding: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(2px);
 }
 
 .carousel {

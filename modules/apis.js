@@ -1,6 +1,7 @@
-import {firstName, lastName, gender, username, email, password, title, body} from './form.js';
-
+import {firstName, lastName, gender, username, email, password, title, body, anonymous} from './form.js';
+import {carouselContainer} from './carousel.js';
 let userInfo;
+const userResults = document.getElementById('user-results');
 async function generateUserData(gender){
   //fetch a random user's information
   //we can have the user choose their country or location, or stay anonymous 
@@ -44,33 +45,83 @@ async function updateUserInfo() {
   const body = document.getElementById('body').value.trim(); */
 
   await generateUserData(gender);
+  let response2;
 
   // Update userInfo object
   if (firstName) userInfo.name.first = firstName.value.trim();
   if (lastName) userInfo.name.last = lastName.value.trim();
-  /* if (gender) userInfo.gender = gender; */
-  if (username) userInfo.login.username = username.value.trim();
-  if (email) userInfo.email = email.value.trim();
-  if (password) userInfo.login.password = password.value.trim();
+  if(!anonymous){
+    if (username) userInfo.login.username = username.value.trim();
+    if (email) userInfo.email = email.value.trim();
+    if (password) userInfo.login.password = password.value.trim();
 
-  userInfo.login.sha256 = await hashPassword(userInfo.login.password, userInfo.login.salt);
-
-  const response2 = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      ...userInfo,
-      title: title.value.trim(),
-      body: body.value.trim(),
-    })
-  });
-
+    userInfo.login.sha256 = await hashPassword(userInfo.login.password, userInfo.login.salt);
+  
+    response2 = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ...userInfo,
+        title: title.value.trim(),
+        body: body.value.trim(),
+      })
+    });
+  }
+  else{
+    response2 = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ...userInfo,
+      })
+    });
+  }
   userInfo = await response2.json();
   console.log("Updated userInfo through PATCH:", userInfo);
 }
 
+function displayUserInfo(){
+  
+  
+
+  /* ---------------------------------- BIO --------------------------------- */
+  const bio = document.createElement('div');
+
+  const img = document.createElement('img');
+  console.log(userInfo)
+  img.style.position = "relative";
+  img.style.borderRadius = "50% 5% 50% 5%";
+  img.src = userInfo.picture.large;
+  bio.appendChild(img);
+
+  const name = document.createElement('p');
+  name.style.fontSize = "2rem";
+  name.textContent = `${userInfo.name.first} ${userInfo.name.last}`;
+  bio.appendChild(name);
+
+  const title = document.createElement('span');
+  title.textContent = userInfo.title;
+  title.style.borderTop = "1px solid black";
+  title.style.borderBottom = "1px solid black";
+  bio.appendChild(title);
+
+  const body = document.createElement('p');
+  body.textContent = userInfo.body;
+  bio.appendChild(body);
+  /* -------------------------------- METRICS ------------------------------- */
+  const metrics = document.createElement('div');
+  
+
+  /* ------------------------------- DISPLAY ------------------------------- */
+  userResults.appendChild(bio);
+  userResults.appendChild(metrics);
+  carouselContainer.classList.add('none');
+  userResults.classList.remove('none');
+}
 async function hashPassword(password, salt) {
   // Combine password and salt
   const combined = password + salt;
@@ -90,5 +141,6 @@ async function hashPassword(password, salt) {
 }
 
 export{
-  updateUserInfo
+  updateUserInfo,
+  displayUserInfo
 }

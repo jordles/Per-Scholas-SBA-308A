@@ -1,6 +1,6 @@
 import { currentStep } from "./main.js";
 
-const.carouselContainer = document.querySelector('.carousel-container');
+const carouselContainer = document.querySelector('.carousel-container');
 const carousel = document.querySelector('.carousel');
 const formItems = document.querySelectorAll('.form-step');
 
