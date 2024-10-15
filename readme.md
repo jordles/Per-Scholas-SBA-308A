@@ -1,3 +1,8 @@
+## Process / What I Learned
+
+I separated my js files into form, carousel, and the apis (anything related to promises and fetching); 
+One of the things I learned from this assignment was how to hash passwords. SHA1 and and MD5 are not secure, but SHA256 still is according to standards. I utilized JS's native web crypto API to help me hash my passwords. 
+
 ## Requirements/Tracking
 
 | Requirement | Weight | Finished |

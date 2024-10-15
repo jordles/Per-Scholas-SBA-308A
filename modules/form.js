@@ -7,6 +7,11 @@ const other = document.querySelector('#other');
 const password = document.querySelector('#password');
 const title = document.querySelector('#title');
 const body = document.querySelector('#body');
+const firstName = document.getElementById('first');
+const lastName = document.getElementById('last');
+const gender = document.querySelector('.gender');
+const username = document.getElementById('username');
+const email = document.getElementById('email');
 const passwordConfirm = document.querySelector('#password-confirm');
 const wrapperSelect = document.querySelectorAll('.wrapper-select');
 
@@ -156,26 +161,26 @@ async function generateUserData(gender){
 };
 async function updateUserInfo() {
   // Grab values from input fields
-  const firstName = document.getElementById('first').value.trim();
-  const lastName = document.getElementById('last').value.trim();
-  const gender = document.querySelector('.gender').value;
-  const username = document.getElementById('username').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value.trim();
-  const title = document.getElementById('title').value.trim();
-  const body = document.getElementById('body').value.trim();
+  // const firstName = document.getElementById('first').value.trim();
+  // const lastName = document.getElementById('last').value.trim();
+  // const gender = document.querySelector('.gender').value;
+  // const username = document.getElementById('username').value.trim();
+  // const email = document.getElementById('email').value.trim();
+  // const password = document.getElementById('password').value.trim();
+  /* const title = document.getElementById('title').value.trim();
+  const body = document.getElementById('body').value.trim(); */
 
   await generateUserData(gender);
 
   // Update userInfo object
-  if (firstName) userInfo.name.first = firstName;
-  if (lastName) userInfo.name.last = lastName;
+  if (firstName) userInfo.name.first = firstName.value.trim();
+  if (lastName) userInfo.name.last = lastName.value.trim();
   /* if (gender) userInfo.gender = gender; */
-  if (username) userInfo.login.username = username;
-  if (email) userInfo.email = email;
-  if (password) userInfo.login.password = password;
-  /* if (title) userInfo.title = title;
-  if (body) userInfo.body = body; */
+  if (username) userInfo.login.username = username.value.trim();
+  if (email) userInfo.email = email.value.trim();
+  if (password) userInfo.login.password = password.value.trim();
+
+  userInfo.login.sha256 = await hashPassword(userInfo.login.password, userInfo.login.salt);
 
   const response2 = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
     method: 'PATCH',
@@ -184,13 +189,31 @@ async function updateUserInfo() {
     },
     body: JSON.stringify({
       ...userInfo,
-      title: title,
-      body: body,
+      title: title.value.trim(),
+      body: body.value.trim(),
     })
   });
 
   userInfo = await response2.json();
   console.log("Updated userInfo through PATCH:", userInfo);
+}
+
+async function hashPassword(password, salt) {
+  // Combine password and salt
+  const combined = password + salt;
+  
+  // Encode the combined string into a Uint8Array
+  const encoder = new TextEncoder();
+  const data = encoder.encode(combined);
+
+  // Use SubtleCrypto to hash the combined password and salt
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+
+  // Convert the hash to a hexadecimal string
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const sha256Hash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+  return sha256Hash;
 }
 export{
   password,
