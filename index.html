@@ -25,7 +25,8 @@
     <div class="carousel">
       <div class="form-step">
         <h2>Choose a Name</h2>
-        <input type="text" id="name" placeholder="Enter your name">
+        <input type="text" id="first" placeholder="Enter your first name">
+        <input type="text" id="last" placeholder="Enter your last name">
       </div>
       <div class="form-step" >
         <h2>User Creation</h2>
@@ -38,9 +39,9 @@
       <div class="form-step">
         <h2>Gender</h2>
         <div class="wrapper-select">
-          <button class="nav-btn" id="male">Male</button>
-          <button class="nav-btn" id="female">Female</button>  
-          <button class="nav-btn" id="other" contenteditable="true">Other</button>
+          <button class="nav-btn" value="male" id="male">Male</button>
+          <button class="nav-btn" value="female" id="female">Female</button>  
+          <button class="nav-btn" value="other" id="other" contenteditable="true">Other</button>
         </div>
       </div>
       <div class="form-step">
@@ -50,6 +51,12 @@
         <input type="password" id="password" placeholder="Password">
         <input type="password" id="confirm-password" placeholder="Confirm Password">
       </div>
+      <div class="form-step">
+        <h2>Tell the world about you!</h2>
+        <input type="text" id="title" placeholder="Title">
+        <textarea name="bio" id="body" cols="30" rows="10" placeholder="Bio"></textarea>
+      </div>
+
     </div>
   </div>
   <div class="message none"></div>

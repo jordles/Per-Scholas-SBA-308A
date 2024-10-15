@@ -23,6 +23,7 @@ formItems.forEach( (item, index) => {
   // Change the "Next" button to "Submit" on the last item
   if (index === formItems.length - 1) {
     next.textContent = 'Submit';
+    next.setAttribute('type', 'submit');
   }
 
   const wrapper = document.createElement('div');

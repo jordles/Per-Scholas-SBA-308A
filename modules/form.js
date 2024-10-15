@@ -5,8 +5,11 @@ const anon = document.querySelector('#anon');
 const message = document.querySelector('.message');
 const other = document.querySelector('#other');
 const password = document.querySelector('#password');
+const title = document.querySelector('#title');
+const body = document.querySelector('#body');
 const passwordConfirm = document.querySelector('#password-confirm');
 const wrapperSelect = document.querySelectorAll('.wrapper-select');
+
 
 custom.addEventListener('mouseover', () => {
   message.style.display = 'block';
@@ -19,7 +22,7 @@ custom.addEventListener('mouseout', () => {
 
 anon.addEventListener('mouseover', () => {
   message.style.display = 'block';
-  message.textContent = 'Stay anonymous; We randomize your user profile for you. This includes your username and password (editable in your settings)';
+  message.textContent = 'Stay anonymous; We randomize your user profile for you. This includes your username and password (editable in your settings later)';
 });
 
 anon.addEventListener('mouseout', () => {
@@ -35,11 +38,41 @@ other.addEventListener('mouseout', () => {
   message.style.display = 'none';
 });
 
-wrapperSelect.forEach(select => select.addEventListener('click', (e) => {
+title.addEventListener('mouseover', () => {
+  message.style.display = 'block';
+  message.textContent = 'Title can be anything; A catchphrase, your job title, a small description about you, hobbies, etc.';
+});
+
+title.addEventListener('mouseout', () => {
+  message.style.display = 'none';
+});
+
+body.addEventListener('mouseover', () => {
+  message.style.display = 'block';
+  message.textContent = 'Your bio or a more in depth description about yourself.';
+});
+
+body.addEventListener('mouseout', () => {
+  message.style.display = 'none';
+});
+wrapperSelect.forEach((select, index ) => select.addEventListener('click', (e) => {
   const buttons = select.querySelectorAll('button');
-  buttons.forEach(btn => {if(btn !== e.target) btn.classList.remove('select')});
+  buttons.forEach(btn => {
+    if(btn !== e.target) 
+      btn.classList.remove('select')
+      console.log(index);
+      if(index === 1 ){
+        if(btn.classList.contains('gender')){
+          btn.classList.remove('gender');
+        }
+      }
+  });
   if(e.target.localName === 'button') {
     e.target.classList.add('select');
+    if(index === 1 ){
+      e.target.classList.add('gender');
+      
+    }
   }
 }));
 
@@ -53,12 +86,16 @@ function validateStep(){
   const currentFormStep = document.querySelectorAll('.form-step')[currentStep];
 
   // Check if the current step contains an input field
-  const inputField = currentFormStep.querySelector('input');
+  const inputField = currentFormStep.querySelectorAll('input');
+
   if (inputField) {
-    // Validate that the input field is not empty
-    if (inputField.value.trim() === '') {
-      displayMessage('This field cannot be blank');
-      return false;
+    console.log(inputField);
+    for (let i = 0; i < inputField.length; i++) {
+      if (inputField[i].value.trim() === '') {
+        inputField[i].focus();
+        displayMessage('This field cannot be blank');
+        return false; // Exit the entire function if validation fails
+      }
     }
   }
 
@@ -85,9 +122,80 @@ function validateStep(){
 
   return true; // Return true if validation passes
 };
+
+let userInfo;
+async function generateUserData(gender){
+  //fetch a random user's information
+  //we can have the user choose their country or location, or stay anonymous 
+  const response = await fetch(`https://randomuser.me/api/?gender=${gender}`);
+  const data = await response.json();
+  console.log(data);
+  const user = data.results[0];
+  userInfo = {
+    seed: data.info.seed,
+    name: {
+      first: user.name.first,
+      last: user.name.last
+    },
+    email: user.email,
+    gender: user.gender,
+    picture: user.picture,
+    id: user.id.value,
+    login: {
+      uuid: user.login.uuid,
+      username: user.login.username,
+      password: user.login.password,
+      salt: user.login.salt,
+      sha256: user.login.sha256
+    }
+  }
+  console.log(userInfo);
+
+  
+
+};
+async function updateUserInfo() {
+  // Grab values from input fields
+  const firstName = document.getElementById('first').value.trim();
+  const lastName = document.getElementById('last').value.trim();
+  const gender = document.querySelector('.gender').value;
+  const username = document.getElementById('username').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const title = document.getElementById('title').value.trim();
+  const body = document.getElementById('body').value.trim();
+
+  await generateUserData(gender);
+
+  // Update userInfo object
+  if (firstName) userInfo.name.first = firstName;
+  if (lastName) userInfo.name.last = lastName;
+  /* if (gender) userInfo.gender = gender; */
+  if (username) userInfo.login.username = username;
+  if (email) userInfo.email = email;
+  if (password) userInfo.login.password = password;
+  /* if (title) userInfo.title = title;
+  if (body) userInfo.body = body; */
+
+  const response2 = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ...userInfo,
+      title: title,
+      body: body,
+    })
+  });
+
+  userInfo = await response2.json();
+  console.log("Updated userInfo through PATCH:", userInfo);
+}
 export{
   password,
   passwordConfirm,
   displayMessage,
-  validateStep
+  validateStep,
+  updateUserInfo
 }
