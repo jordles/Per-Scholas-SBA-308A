@@ -2,6 +2,8 @@ import {firstName, lastName, gender, username, email, password, title, body, ano
 import {carouselContainer} from './carousel.js';
 let userInfo;
 const userResults = document.getElementById('user-results');
+const coreRoots = document.getElementById('core-roots');
+const inputs = document.querySelectorAll('#core-tree > input');
 async function generateUserData(gender){
   //fetch a random user's information
   //we can have the user choose their country or location, or stay anonymous 
@@ -84,7 +86,7 @@ async function updateUserInfo() {
   console.log("Updated userInfo through PATCH:", userInfo);
 }
 
-function displayUserInfo(){
+async function displayUserInfo(){
   
   
 
@@ -114,8 +116,11 @@ function displayUserInfo(){
   bio.appendChild(body);
   /* -------------------------------- METRICS ------------------------------- */
   const metrics = document.createElement('div');
-  
+  const wordCloud = await grabCoreRoots();
+  metrics.appendChild(wordCloud);
 
+  const coreTree = await grabCoreTree();
+  metrics.appendChild(coreTree);
   /* ------------------------------- DISPLAY ------------------------------- */
   userResults.appendChild(bio);
   userResults.appendChild(metrics);
@@ -140,6 +145,66 @@ async function hashPassword(password, salt) {
   return sha256Hash;
 }
 
+
+/* -------------------------------------------------------------------------- */
+/*                                   METRICS                                  */
+/* -------------------------------------------------------------------------- */
+
+
+async function grabCoreRoots(){
+  const text = coreRoots.value;
+  const response = await fetch(`https://quickchart.io/wordcloud?text=${text}`);
+  
+  const img = document.createElement('img');
+  img.style.borderRadius = "10px";
+  img.src = response.url;
+  return img;
+}
+
+async function grabCoreTree(){
+  const label = [];
+  const data = [];
+  inputs.forEach(input => {
+    label.push(input.id[0].toUpperCase() + input.id.slice(1));
+    data.push(input.value);
+  })
+  // Properly encode the arrays for the URL
+  // Convert arrays to strings and URL encode them
+  const encodedLabels = JSON.stringify(label);
+  const encodedData = JSON.stringify(data);
+
+  // Construct the full chart configuration string
+  const chartConfig = {
+    type: 'radar',
+    data: {
+      labels: JSON.parse(encodedLabels),
+      datasets: [{
+        label: 'Your Core Tree',
+        data: JSON.parse(encodedData),
+        borderColor: '#05668d',
+        pointBackgroundColor: '#00a896',
+        backgroundColor: '#00a8978c'
+      }]
+    },
+    options: {
+      scale: {
+        ticks: {
+          min: 1,
+          max: 5,
+          stepSize: 1
+        }
+      }
+    }
+  };
+
+  const encodedChartConfig = encodeURIComponent(JSON.stringify(chartConfig));
+  
+  const response = await fetch(`https://quickchart.io//chart?bkg=rgba(255, 255, 255, 0)&c=${encodedChartConfig}`);
+  console.log(response);
+  const img = document.createElement('img');
+  img.src = response.url;
+  return img;
+}
 export{
   updateUserInfo,
   displayUserInfo

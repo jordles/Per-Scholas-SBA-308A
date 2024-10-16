@@ -17,7 +17,7 @@ nextButtons.forEach(button => {
     }
     if(button.getAttribute('type') === 'submit') {
       await updateUserInfo();
-      displayUserInfo();
+      await displayUserInfo();
     }
     (anonymous && currentStep === 1) ? currentStep += 4 : currentStep++;
     moveCarousel();

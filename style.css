@@ -10,7 +10,8 @@ html, body{
 
 body{
   display: flex;
-  overflow: hidden;
+  overflow-y: visible;
+  padding: 40px;
 }
 
 @keyframes animate {
@@ -39,9 +40,9 @@ input, textarea{
   padding: 10px;
 }
 
-img:hover{
+/* img:hover{
   border: 5px dotted #f0f3bd;
-}
+} */
 .none{
   display: none !important;
 }
@@ -155,11 +156,21 @@ img:hover{
   align-items: center;
   text-align: center;
   background: rgb(255 255 255 / 20%);
-  padding: 20px;
+  padding: 80px 20px;
   border-radius: 10px;
   backdrop-filter: blur(2px);
 }
 
+#user-results > div:last-of-type{
+  width: 100%;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+#user-results > div:last-of-type img{
+  object-fit: fill;
+  width: 100%;
+}
 .carousel {
   display: flex;
   transition: transform 0.4s ease-in-out;
