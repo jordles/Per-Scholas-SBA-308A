@@ -117,6 +117,7 @@ async function displayUserInfo(){
   name.style.borderTop = "2px solid black";
   name.style.borderBottom = "2px solid black";
   name.style.fontSize = "2rem";
+  name.style.width = "fit-content";
   name.style.marginBottom = 0;
   name.textContent = `${userInfo.name.first} ${userInfo.name.last}`;
   bio.appendChild(name);

@@ -1,12 +1,13 @@
 # Per Scholas SBA 308A 
 
-![demo image](image.png)
+This is a user creation form, and the user can choose between customizing it or randomizing it to stay anonymous. The randomuser api automatically helps us populate random data the player will not need to input themselves. If you choose to customize only a very limited of fields are optional, and most of them will have some sort of validation between each form step. When you are finished with the form, clicking submit will bring you to a page where you can see your profile. Your profile includes: a picture of you, email, id, title, body, and the metric system to showcase who you are! 
+
+![demo image](image.png)  
 [demo link]()
 
 ## Process / What I Learned
 
-I separated my js files into form, carousel, and the apis (anything related to promises and fetching); 
-One of the things I learned from this assignment was how to hash passwords. SHA1 and and MD5 are not secure, but SHA256 still is according to standards. I utilized JS's native web crypto API to help me hash my passwords. 
+I separated my js files into form, carousel, and the apis (anything related to promises and fetching); For my APIs I utilized: randomuser, jsonplaceholder, and quickchart. All of these don't require an api key and there are no limits to calling them. One of the things I learned from this assignment was how to hash passwords. SHA1 and and MD5 are not secure, but SHA256 still is according to standards. I utilized JS's native web crypto API to help me hash my passwords. 
 
 ## Requirements/Tracking
 
@@ -27,5 +28,6 @@ One of the things I learned from this assignment was how to hash passwords. SHA1
 ## Attribution
 [Animated Background: Demo 2](https://wweb.dev/resources/animated-css-background-generator)  
 [Random User API: Generated Default User Data](https://randomuser.me/)  
+[Metrics Data and Graphs](https://quickchart.io/)  
 [JSON MOCK DATA: Allowed us to use PATCH requests with Random User API](https://jsonplaceholder.typicode.com/)
 
