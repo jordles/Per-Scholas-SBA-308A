@@ -7,7 +7,7 @@ const inputs = document.querySelectorAll('#core-tree > input');
 async function generateUserData(gender){
   //fetch a random user's information
   //we can have the user choose their country or location, or stay anonymous 
-  if(gender === 'other') gender = '';
+  if(gender === 'other') gender = "";
   const response = await fetch(`https://randomuser.me/api/?gender=${gender}`);
   const data = await response.json();
   console.log(data);
@@ -45,7 +45,8 @@ async function updateUserInfo() {
   // const password = document.getElementById('password').value.trim();
   /* const title = document.getElementById('title').value.trim();
   const body = document.getElementById('body').value.trim(); */
-
+  const gender = anonymous ? "" : document.querySelector('.gender').value;
+  console.log(gender);
   await generateUserData(gender);
   let response2;
 
@@ -93,25 +94,41 @@ async function displayUserInfo(){
   /* ---------------------------------- BIO --------------------------------- */
   const bio = document.createElement('div');
 
+  const bioWrapper = document.createElement('div');
   const img = document.createElement('img');
   console.log(userInfo)
   img.style.position = "relative";
   img.style.borderRadius = "50% 5% 50% 5%";
   img.src = userInfo.picture.large;
-  bio.appendChild(img);
+  bioWrapper.appendChild(img);
+
+  const email = document.createElement('p');
+  email.textContent = `Email: ${userInfo.email}`; 
+  bioWrapper.appendChild(email);
+
+  const id = document.createElement('p');
+  id.textContent = `ID: ${userInfo.id}`; 
+  bioWrapper.appendChild(id);
+  
+  
+  bio.appendChild(bioWrapper);
 
   const name = document.createElement('p');
+  name.style.borderTop = "2px solid black";
+  name.style.borderBottom = "2px solid black";
   name.style.fontSize = "2rem";
+  name.style.marginBottom = 0;
   name.textContent = `${userInfo.name.first} ${userInfo.name.last}`;
   bio.appendChild(name);
 
   const title = document.createElement('span');
+  title.style.fontStyle = "italic";
   title.textContent = userInfo.title;
-  title.style.borderTop = "1px solid black";
-  title.style.borderBottom = "1px solid black";
+  
   bio.appendChild(title);
 
   const body = document.createElement('p');
+  body.style.fontSize = "1.5rem";
   body.textContent = userInfo.body;
   bio.appendChild(body);
   /* -------------------------------- METRICS ------------------------------- */

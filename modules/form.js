@@ -15,17 +15,17 @@ const passwordConfirm = document.querySelector('#password-confirm');
 const wrapperSelect = document.querySelectorAll('.wrapper-select');
 const coreRoots = document.getElementById('core-roots');
 const coreTree = document.getElementById('core-tree');
-const nurturing = document.getElementById('nurturing');
-const adaptability = document.getElementById('adaptability');
-const grounded = document.getElementById('grounded');
-const simplicity = document.getElementById('simplicity');
-const creativity = document.getElementById('creativity');
+const nurturing = document.querySelector('label[for="nurturing"]');
+const adaptability = document.querySelector('label[for="adaptability"]');
+const grounded = document.querySelector('label[for="grounded"]');
+const simplicity = document.querySelector('label[for="simplicity"]');
+const creativity = document.querySelector('label[for="creativity"]');
 
 let anonymous = false;
-console.log(nurturing);
 // Function to handle mouseover and mouseout events
 function handleHover(element, messageText) {
-  element.addEventListener('mouseover', () => {
+  element.addEventListener('mouseover', (e) => {
+    e.stopPropagation();
     message.classList.remove('none');
     message.textContent = messageText;
   });
