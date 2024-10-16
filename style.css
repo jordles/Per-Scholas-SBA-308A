@@ -10,8 +10,8 @@ html, body{
 
 body{
   display: flex;
-  overflow-y: visible;
   padding: 40px;
+  overflow: hidden;
 }
 
 @keyframes animate {
@@ -147,10 +147,9 @@ input, textarea{
   position: relative;
   width: 100%;
   overflow-y: visible; /* Hide the other slides */
-  
 }
 #user-results{
-  max-width: 600px;
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -163,13 +162,13 @@ input, textarea{
 
 #user-results > div:last-of-type{
   width: 100%;
-  /* display: flex;
+  display: flex;
   justify-content: center;
-  align-items: center; */
+  align-items: center;
 }
 #user-results > div:last-of-type img{
   object-fit: fill;
-  width: 100%;
+  width: 50%;
 }
 .carousel {
   display: flex;

@@ -153,7 +153,7 @@ async function hashPassword(password, salt) {
 
 async function grabCoreRoots(){
   const text = coreRoots.value;
-  const response = await fetch(`https://quickchart.io/wordcloud?text=${text}`);
+  const response = await fetch(`https://quickchart.io/wordcloud?text=${text}&fontScale=75`);
   
   const img = document.createElement('img');
   img.style.borderRadius = "10px";
@@ -168,19 +168,15 @@ async function grabCoreTree(){
     label.push(input.id[0].toUpperCase() + input.id.slice(1));
     data.push(input.value);
   })
-  // Properly encode the arrays for the URL
-  // Convert arrays to strings and URL encode them
-  const encodedLabels = JSON.stringify(label);
-  const encodedData = JSON.stringify(data);
 
   // Construct the full chart configuration string
   const chartConfig = {
     type: 'radar',
     data: {
-      labels: JSON.parse(encodedLabels),
+      labels: label,
       datasets: [{
         label: 'Your Core Tree',
-        data: JSON.parse(encodedData),
+        data: data,
         borderColor: '#05668d',
         pointBackgroundColor: '#00a896',
         backgroundColor: '#00a8978c'
