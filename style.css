@@ -33,7 +33,7 @@ h2{
   border-bottom: 1px black solid;
 }
 
-input, textarea{
+input:not([type="range"]), textarea{
   border-radius: 5px;
   background: rgb(255 255 255 / 0.5);
   border: none;

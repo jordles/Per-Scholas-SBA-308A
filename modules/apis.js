@@ -118,7 +118,9 @@ async function displayUserInfo(){
   name.style.borderBottom = "2px solid black";
   name.style.fontSize = "2rem";
   name.style.width = "fit-content";
+  name.style.margin = "0 auto";
   name.style.marginBottom = 0;
+  name.style.padding = "0 10px";
   name.textContent = `${userInfo.name.first} ${userInfo.name.last}`;
   bio.appendChild(name);
 
@@ -172,7 +174,17 @@ async function hashPassword(password, salt) {
 async function grabCoreRoots(){
   const text = coreRoots.value;
   const response = await fetch(`https://quickchart.io/wordcloud?text=${text}&fontScale=75`);
-  
+  /* const response = await fetch(`https://quickchart.io/wordcloud`, { //works on postman but not on localhost; getting 400 bad request
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      "text": text,
+      "fontScale": 75
+    })
+  }); */
   const img = document.createElement('img');
   img.style.borderRadius = "10px";
   img.src = response.url;
